@@ -5,7 +5,8 @@ public class MainSRP {
     public static void main(String[] args) {
 
         Scanner scanner = new Scanner(System.in);
-        FacturationService service = new FacturationService();
+        FactureService factureService = new FactureService();
+        DevisService devisService = new DevisService();
 
         boolean quitter = false;
 
@@ -16,10 +17,10 @@ public class MainSRP {
 
             switch (choix) {
                 case 1:
-                    traiterDocument(scanner, service, true);
+                    traiterFacture(scanner, factureService, true);
                     break;
                 case 2:
-                    traiterDocument(scanner, service, false);
+                    traiterDevis(scanner, devisService, false);
                     break;
                 case 0:
                     quitter = true;
@@ -40,17 +41,21 @@ public class MainSRP {
         System.out.println("0. Quitter");
     }
 
-    private static void traiterDocument(Scanner scanner, FacturationService service, boolean facture) {
+    private static void traiterFacture(Scanner scanner, FactureService factureService, boolean facture) {
         double montantHT = lireDoublePositif(scanner, "Montant HT : ");
 
-        if (facture) {
-            System.out.print("Nom du client : ");
-            String client = scanner.nextLine().trim();
-            service.creerFacture(montantHT, client);
-        } else {
-            service.creerDevis(montantHT);
-        }
+        System.out.print("Nom du client : ");
+        String client = scanner.nextLine().trim();
+
+        factureService.AfficherFacture(montantHT, client);
     }
+
+    private static void traiterDevis(Scanner scanner, DevisService devisService, boolean facture) {
+        double montantHT = lireDoublePositif(scanner, "Montant HT : ");
+
+        devisService.afficherDevis(montantHT);
+    }
+
 
     private static int lireEntier(Scanner scanner, String message) {
         while (true) {
