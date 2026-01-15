@@ -4,7 +4,6 @@ public class MainOCP {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        CalculateurRemise calculateur = new CalculateurRemise();
 
         boolean quitter = false;
 
@@ -24,14 +23,17 @@ public class MainOCP {
             }
 
             System.out.print("Montant HT : ");
+            CalculateurRemise calculateur = CalculateurRemiseFactory.creerCalculateur(choix);
+
             double montant = lireDouble(scanner);
 
-            double total = calculateur.calculerTotal(choix, montant);
+            double total = calculateur.calculateurTotal(montant);
             System.out.println("Montant après remise : " + total);
         }
 
         scanner.close();
     }
+
 
     private static int lireEntier(Scanner scanner) {
         while (true) {

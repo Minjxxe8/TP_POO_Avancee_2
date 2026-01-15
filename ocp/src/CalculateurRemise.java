@@ -1,16 +1,16 @@
-public class CalculateurRemise {
 
-    public double calculerTotal(int typeClient, double montant) {
+//Ici se trouve la logique de calcul qui sera répartie entre les différents clients. On récupère le type de client avec un get, on détermine comment fonctionne le calculateur, puis le client gère sa partie.
+public abstract class CalculateurRemise {
 
-        if (typeClient == 1) {               // Standard
-            return montant;
-        } else if (typeClient == 2) {        // Étudiant
-            return montant * 0.9;
-        } else if (typeClient == 3) {        // VIP
-            return montant * 0.8;
-        } else {
-            System.out.println("Type client inconnu");
-            return montant;
-        }
+    protected double remise;
+
+    public CalculateurRemise(double remise) {
+        this.remise = remise;
     }
+
+    public double calculateurTotal(double total) {
+        return total * remise;
+    }
+
+    public abstract String getTypeClient();
 }
