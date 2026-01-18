@@ -7,11 +7,14 @@ public class MainLsp {
 
         CompteBancaire compte = choisirCompte(scanner);
 
-        System.out.print("Montant à retirer : ");
-        double montant = lireDouble(scanner);
-
-        compte.retirer(montant);
-
+        //Ici, j'ai rajouté un système de vérification, pour que selon l'instance du compte choisi, les actions sont différentes.
+        if (compte instanceof CompteCourantService compteCourant) {
+            System.out.print("Montant à retirer : ");
+            double montant = lireDouble(scanner);
+            compteCourant.retirer(montant);
+        } else if (compte instanceof PEL pel) {
+            System.out.println("Vous ne pouvez pas retirer d'argent pour l'instant, mais vous pouvez consulter votre solde : " + pel.getSolde());
+        }
         scanner.close();
     }
 
@@ -26,7 +29,7 @@ public class MainLsp {
         if (choix == 2) {
             return new PEL();
         }
-        return new CompteBancaire();
+        return new CompteCourantService();
     }
 
     private static int lireEntier(Scanner scanner) {

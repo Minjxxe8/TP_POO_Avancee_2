@@ -1,9 +1,9 @@
-public class CompteBancaire {
+//Ici, j'ai décidé de faire en sorte que cette classe affiche seulement les soldes des comptes, quelque chose que le PEL et le compte courant partagent.
+public abstract class CompteBancaire {
 
     protected double solde = 100;
-
-    public void retirer(double montant) {
-        solde -= montant;
-        System.out.println("Retrait effectué. Nouveau solde : " + solde);
+    public double getSolde() {
+        return solde;
     }
+
 }
