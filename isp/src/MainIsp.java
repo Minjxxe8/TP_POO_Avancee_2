@@ -24,7 +24,8 @@ public class MainIsp {
 
             int machineChoisie = lireEntier(scanner);
 
-            Machine machine;
+            //Ici, utilisation de l'interface MachinePrintInterface car c'est celle qu'ils partagent tous.
+            MachinePrintInterface machine;
             if (machineChoisie == 2) {
                 machine = new ImprimanteMultifonction();
             } else {
@@ -41,11 +42,30 @@ public class MainIsp {
         scanner.close();
     }
 
-    private static void executerFonction(Machine machine, int fonction) {
+    //Ici, j'ai utilisé un système de case pour vérifier à chaque input si la machine choisie supporte la fonctionnalité demandée.
+    private static void executerFonction(MachinePrintInterface machine, int fonction) {
         switch (fonction) {
-            case 1: machine.print(); break;
-            case 2: machine.scan(); break;
-            case 3: machine.fax(); break;
+            case 1:
+                if (machine instanceof MachinePrintInterface machinePrint) {;
+                    machinePrint.print();
+                } else {
+                    System.out.println("Cette machine ne peut pas imprimer");
+                }
+                break;
+            case 2:
+                if (machine instanceof MachineScanInterface machineScan) {;
+                    machineScan.scan();
+                } else {
+                    System.out.println("Cette machine ne peut pas scanner");
+                }
+                break;
+            case 3:
+                if (machine instanceof MachineFaxInterface machineFax) {;
+                    machineFax.fax();
+                } else {
+                    System.out.println("Cette machine ne peut pas faxer");
+                }
+                break;
             default: System.out.println("Fonction inconnue");
         }
     }
