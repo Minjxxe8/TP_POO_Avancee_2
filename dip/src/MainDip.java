@@ -5,7 +5,6 @@ public class MainDip {
     public static void main(String[] args) {
 
         Scanner scanner = new Scanner(System.in);
-        NotificationService service = new NotificationService();
 
         while (true) {
             System.out.println("\n--- MENU ---");
@@ -21,7 +20,19 @@ public class MainDip {
             System.out.print("Message : ");
             String message = scanner.nextLine();
 
-            service.envoyer(message, choix);
+            MessageSender senderChoisi = switch (choix) {
+                case 1 -> new EmailSender();
+                case 2 -> new SmsSender();
+                case 3 -> new PushNotificationSender();
+                default -> null;
+            };
+
+            if (senderChoisi != null) {
+                NotificationService service = new NotificationService(senderChoisi);
+                service.envoyer(message);
+            } else {
+                System.out.println("Choix invalide");
+            }
         }
 
         scanner.close();
